@@ -8,9 +8,18 @@ describe('Protractor baby steps',function() {
 	var rowsCount;
 	var checkedItems;
 	var rowNum;
-	var totalProdAmount;
+	var totalProdAmount = 0;
 	var resultCount; //= count-3; // value for the selected products rowscount(excluded header and footer rows)
 	var totalRowCount; //= resultCount+1; // value for the total amount displayed row 
+	
+	beforeEach(function() {
+        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+    });
+
+    afterEach(function() {
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    });
 	
 	function selectItems(product)
 	{
@@ -135,7 +144,7 @@ it('Open Angular Practice Excercise',function() {
 										var result = text.split(".");
 										console.log(Number(result[1].trim()) + " is the amount of the selected product");
 										totalProdAmount = totalProdAmount + (Number(result[1].trim()));
-										console.log(totalProdAmount + " is the total sum displayed for the selected products");
+										//console.log(totalProdAmount + " is the total sum displayed for the selected products");
 										
 										if (rowNum >= totalRowCount)
 											{
@@ -144,7 +153,7 @@ it('Open Angular Practice Excercise',function() {
 														var displayedResult = text.split(".");
 														var temp = 0;
 														displayedResult = temp + (Number(displayedResult[1].trim()));
-														console.log(Number(displayedResult[1].trim()) + " is the sum of the total products");
+														console.log(displayedResult + " is the sum of the total products");
 														if (totalProdAmount == displayedResult)
 															{
 																console.log("Displayed sum of the individual products " +totalProdAmount+ " is similar to the Sum displayed  " +displayedResult );
@@ -155,11 +164,12 @@ it('Open Angular Practice Excercise',function() {
 															}					
 																			
 													})
-											}
-										rowNum = rowNum+1;
-								})					
+											}										
+								})
+								
+							rowNum = rowNum+1;
 						
-						}while(rowNum <= resultCount)								
+						}while(rowNum <= resultCount)
 				})
 											
 														
